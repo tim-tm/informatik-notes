@@ -1,0 +1,117 @@
+\chapter{Datenstrukturen}
+\begin{flushleft}   
+    Datenstrukturen speichern Daten, damit später ohne Probleme auf diese Daten zugegriffen werden kann.
+    Man nennt sie Daten\textbf{\textit{strukturen}}, da die Daten, die gespeichert werden auf eine bestimmte Art und Weise angeordnet (strukturiert) werden.
+\end{flushleft}
+
+\section{Statisch}
+\begin{flushleft}
+    Statische Datenstrukturen sind -- wie der Name schon sagt -- bestimmt.
+    Sie sind relativ fest angeordnet und können schlecht bis gar nicht verändert werden.
+\end{flushleft}
+
+\subsection{Array}
+\begin{flushleft}
+    Arrays sind im Prinzip Listen, die eine feste Größe haben.
+    Sie speichern Elemente eines Typs.
+    Das bedeutet, dass ein einzelnes Array nicht dafür gedacht ist Integer und Strings zu speichern. \\
+    Um Arrays vernünftig zu verstehen sieht man hier ein Beispiel für ein Array, das Integer speichert:
+\end{flushleft}
+
+\begin{center}
+\begin{tikzpicture}
+    \matrix (A) [matrix of nodes, nodes={draw, minimum size=8mm},column sep=-\pgflinewidth]{
+        3 & 4 & 2 & 1 & 4 & 1 & 2 & 3 \\
+    };
+\end{tikzpicture}
+\end{center}
+
+\begin{flushleft}
+    Arrays weisen jedem Element, das sie speichern einen \textit{Index} zu.
+    Indices (Mehrzahl eines Index) starten in der Regel bei $0$.
+    Das erste Element des Beispiel-Arrays hat den Wert $3$ und liegt beim Index $0$.
+    Hier ein Beispiel zur Erstellung und Nutzung eines Arrays in Java.
+    \begin{lstlisting}
+        // Array.java
+        
+        // Unser Beispiel-Array erstellen
+        int[] array = {3,4,2,1,4,1,2,3};
+
+        // Die Laenge unseres Beispiel-Arrays abrufen
+        int arrLen = array.length;
+        
+        // Den Wert des ersten Elements (3) in die Variable firstElem speichern
+        int firstElem = array[0];
+
+        // Ein Array erstellen, das vier mal den Wert 0 speichert
+        int[4] array1;
+    \end{lstlisting}
+\end{flushleft}
+
+\section{Dynamisch}
+\begin{flushleft}   
+    Dynamische Datenstrukturen sind -- vorallem im Vergleich zu statischen Datenstrukturen -- agil.
+    Es ist sehr viel leichter Elemente zu entfernen oder hinzuzufügen, da die Größe von dynamischen Datenstrukturen nicht fest ist.
+\end{flushleft}
+
+\subsection{Queue}
+\begin{flushleft}   
+    Queue bedeutet übersetzt Warteschlange oder Schlange.
+    Genau nach diesem Prinzip funktioniert auch eine Queue. \\
+    Ein Mensch stellt sich in eine Schlange hinter andere Menschen.
+    Vor ihm werden viele Leute aufgerufen, bis er dran kommt.
+    Jede Person in der Warteschlange wird nacheinander abgearbeitet.
+    Die erste Person, die sich anstellt, wird auch als erstes aufgerufen. \\
+    Das nennt man auch \textit{First-In-First-Out} (\textit{FIFO}) Prinzip.
+    Hier ein Bild zu der Erklärung:
+\end{flushleft}
+
+\begin{center}
+\begin{tikzpicture}[draw,minimum width=1cm,minimum height=0.5cm]
+    \node[draw] (in) at (-1,2) {\text{Neue Person}};
+    \node[draw] (out) at (1,-2) {\text{Aufgerufener}};
+    \matrix (queue)[matrix of nodes,nodes={draw, nodes={draw}}]{
+         4. \\ 3. \\ 2. \\ 1. \\
+     };
+
+    \draw[-latex] (0.25,-1) .. controls (0.25,-1.25) and (1,-1.25) .. (out.north);
+    \draw[-latex] (in.south) .. controls (-1,1.5) and (-0.25,1.5) .. (-0.25,1);
+\end{tikzpicture}
+\end{center}
+
+\begin{flushleft}
+    Das Aufrufen einer Person, entfernt diese aus der Queue.
+    Dieser Prozess wird auch \textit{dequeue} genannt.
+    Wenn sich eine neue Person anstellt, wird sie der Queue hinzugefügt.
+    Das nennt man \textit{enqueue}. \\
+    Weitere typische Operationen einer Queue sind:
+    \begin{enumerate}
+        \item {
+                Das erste Element einer Queue aufrufen mit \textit{front}
+            }
+        \item {
+                Prüfen ob die Queue leer ist mit \textit{isEmpty}
+            }
+    \end{enumerate}
+    Eine allgemeine Queue würde also so aussehen:
+\end{flushleft}
+
+\begin{center}
+\begin{tikzpicture}[draw,minimum width=1cm,minimum height=0.5cm]
+    \node[draw] (in) at (-1,2) {\textit{enqueue}};
+    \node[draw] (out) at (1,-2) {\textit{dequeue}};
+    \matrix (queue)[matrix of nodes,nodes={draw, nodes={draw}},nodes in empty cells]{
+         \\ \\ \\ \\
+     };
+
+    \draw[-latex] (0.25,-1) .. controls (0.25,-1.25) and (1,-1.25) .. (out.north);
+    \draw[-latex] (in.south) .. controls (-1,1.5) and (-0.25,1.5) .. (-0.25,1);
+\end{tikzpicture}
+\end{center}
+
+\begin{flushleft}
+    Im Abitur wird eine Queue als Java-Klasse vorgegeben. \\
+    \textattachfile[color=0 0 0]{Queue.java}{Abiturvorgabe: Queue}
+\end{flushleft}
+
+\subsection{Stack}
