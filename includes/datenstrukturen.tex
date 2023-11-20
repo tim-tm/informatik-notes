@@ -55,6 +55,8 @@
 \end{flushleft}
 
 \subsection{Queue}
+\subsubsection{Einführung}
+
 \begin{flushleft}   
     Queue bedeutet übersetzt Warteschlange oder Schlange.
     Genau nach diesem Prinzip funktioniert auch eine Queue. \\
@@ -101,8 +103,8 @@
     \node[draw] (in) at (-1,2) {\textit{enqueue}};
     \node[draw] (out) at (1,-2) {\textit{dequeue}};
     \matrix (queue)[matrix of nodes,nodes={draw, nodes={draw}},nodes in empty cells]{
-         \\ \\ \\ \\
-     };
+        \\ \\ \\ \textit{front} \\
+    };
 
     \draw[-latex] (0.25,-1) .. controls (0.25,-1.25) and (1,-1.25) .. (out.north);
     \draw[-latex] (in.south) .. controls (-1,1.5) and (-0.25,1.5) .. (-0.25,1);
@@ -111,7 +113,126 @@
 
 \begin{flushleft}
     Im Abitur wird eine Queue als Java-Klasse vorgegeben. \\
-    \textattachfile[color=0 0 0]{code/Queue.java}{Abiturvorgabe: Queue}
+    \textattachfile[color=0 0 0]{code/Queue.java}{\textit{Abiturvorgabe: Queue}}
+\end{flushleft}
+
+\subsubsection{Anwendung}
+\begin{flushleft}
+    Für Queues gibt es meistens immer ähnliche Aufgaben: \\
+    Einfache Queues:
+    \begin{lstlisting}
+        // Erstellt eine Queue von Strings
+        Queue<String> queue = new Queue<>();
+        
+        // Fuegt der Queue eine neues Element mit dem Wert "Hallo" hinzu
+        queue.enqueue("Hallo");
+
+        // Gibt das erste Element der Queue ("Hallo") in der Konsole aus
+        System.out.println(queue.front());
+
+        // Entfernt das erste Element ("Hallo") aus der Queue
+        queue.dequeue();
+    \end{lstlisting}
+    \textattachfile[color=0 0 0]{code/Queue_Beispiel1.java}{\textit{Unkommentierter Code}} \\
+    Queues mit eigenen Klassen:
+    \begin{lstlisting}
+        // Unsere eigene Klasse um Koordinaten zu speichern
+        class Koordinate {
+            int x;
+            int y;
+        }
+        
+        // Erstellt eine Queue von Koordinaten
+        Queue<Koordinate> queue = new Queue<>();
+        
+        // Wir moechten eine neue Koordinate hinzufuegen
+        // 1. Die Koordinate erstellen
+        Koordinate coord = new Koordinate();
+        
+        // 2. Werte fuer x und y setzen
+        coord.x = 100;
+        coord.y = 150;
+
+        // 3. Die Koordinate der Queue hinzufuegen
+        queue.enqueue(coord);
+    
+        // Die erste Koordinate ausgeben
+        // 1. Die Koordinate aus der Queue holen
+        Koordinate koord = queue.front();
+
+        // 2. X-Wert der Koordinate ausgeben
+        System.out.println(koord.x);
+        
+        // 3. Y-Wert der Koordinate ausgeben
+        System.out.println(koord.y);
+
+        // Erste Koordinate (x=100, y=150) aus der Queue entfernen
+        queue.dequeue();
+    \end{lstlisting}
+    \textattachfile[color=0 0 0]{code/Queue_Beispiel2.java}{\textit{Unkommentierter Code}} \\
+    Bei diesem Beispiel fällt vorallem auf, dass plötzlich viel mehr Schritte benötigt werden um ein Element hinzuzufügen.
+    Das kann vereinfacht werden indem man der Klasse einen \textit{Konstruktur} gibt.
+    Der \textit{Konstruktor} wird ausgeführt wenn man ein neues Objekt der Klasse erstellt.
+    \begin{lstlisting}
+        // Unsere eigene Klasse um Koordinaten zu speichern
+        class Koordinate {
+            int x;
+            int y;
+            
+            /** 
+                * Diese besondere Methode (Konstruktur) wird aufgerufen, wenn wir new Koordinate() ausfuehren.
+                * Unsere Variablen x und y sollen zu den neuen Werten, also unseren Parametern xNeu und yNeu gesetzt werden.
+                * Achtung: Der Name des Konstruktors muss genau mit dem Namen der Klasse uebereinstimmen.
+                */
+            public Koordinate(int xNeu, int yNeu) {
+                x = xNeu;
+                y = yNeu;
+            }
+        }
+        
+        // Erstellt eine Queue von Koordinaten
+        Queue<Koordinate> queue = new Queue<>();
+        
+        // Wir moechten eine neue Koordinate hinzufuegen
+        // 1. Die Koordinate erstellen
+        // Anstatt unsere Werte fuer x und y erst nach dem Erstellen einzutragen, packen wir diese jetzt einfach direkt in die Klammern, wenn wir unsere Koordinate erstellen.
+        // Das funktioniert nur, weil wir in der Definition unserer Klasse einen Konstruktor erstellt haben.
+        Koordinate coord = new Koordinate(100, 150);
+
+        // 2. Schritt faellt weg
+
+        // 3. (jetzt 2.) Die Koordinate der Queue hinzufuegen
+        queue.enqueue(coord);
+    
+        // Ausgeben und entfernen bleibt gleich
+    \end{lstlisting}
+    \textattachfile[color=0 0 0]{code/Queue_Beispiel3.java}{\textit{Unkommentierter Code}} \\
+    Dadurch, dass wir einen Konstruktor erstellt haben, sparen wir uns jedes mal wenn wir ein Objekt erstellen zwei Zeilen code. \\
+    Kompliziertere Aufgaben mit Queues:
+    \begin{lstlisting}
+        /*
+            * 1. 
+            *      Die Aufgabenstellung sagt uns, dass es bereits eine Queue namens queue gibt, diese speichert Strings.
+            *      Wir sollen jedes Element dieser Queue entfernen und ausgeben lassen.
+            */
+
+        // Die Schleife wird durchlaufen, solange es noch Elemente in der Queue gibt.
+        // Also solange sie nicht leer ist (!isEmpty).
+        while (!queue.isEmpty()) {
+            // Das erste Element der Queue in der Variable s speichern
+            String s = queue.front();
+
+            // Die Variable s, also das erste Element der Queue ausgeben lassen
+            System.out.println(s);
+
+            // Das erste Element (hier: s) aus der Queue entfernen
+            // Ohne diesen Schritt wuerde die Schleife unendlich lange das erste Element ausgeben
+            queue.dequeue();
+        }
+    \end{lstlisting}
+    \textattachfile[color=0 0 0]{code/Queue_Beispiel4.java}{\textit{Unkommentierter Code}}
 \end{flushleft}
 
 \subsection{Stack}
+\subsubsection{Einführung}
+\subsubsection{Anwendung}
