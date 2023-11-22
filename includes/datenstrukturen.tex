@@ -235,4 +235,47 @@
 
 \subsection{Stack}
 \subsubsection{Einführung}
+
+\begin{flushleft}
+    Die deutsche Übersetzung für ein Stack ist: Stapel.
+    Das sind Stacks auch, ein Stapel auf den man Dinge legen, oder von dem man Dinge nehmen kann.
+    Stacks funktionieren nach dem \textit{Last-In-First-Out} (\textit{LIFO}) Prinzip.
+    Man kann also immer nur das letzte Element, was auf den Stapel gelegt wurde wieder vom Stapel nehmen.
+    Typische Operationen sind:
+    \begin{enumerate}
+        \item {
+                \textit{push} - Elemente hinzufügen
+            }
+        \item {
+                \textit{pop} - Elemente entfernen
+            }
+        \item {
+                \textit{top} - Auf das oberste Element zugreifen
+            }
+        \item {
+                \textit{isEmpty} - Prüfen ob der Stack leer ist
+            }
+    \end{enumerate}
+    So kann man sich einen Stack vorstellen:
+\end{flushleft}
+
+\begin{center}
+\begin{tikzpicture}[draw, minimum width=1cm, minimum height=0.5cm]
+    \node[draw] (in) at (-1,2) {\textit{push}};
+    \node[draw] (out) at (1,2) {\textit{pop}};
+    \matrix (queue)[matrix of nodes, nodes={draw, nodes={draw}}, nodes in empty cells]
+    {
+        \textit{top} \\ \\ \\ \\
+    };
+
+    \draw[-latex] (0.25,1) .. controls (0.25,1.5) and (1,1.5) .. (out.south);
+    \draw[-latex] (in.south) .. controls (-1, 1.5) and (-0.25,1.5) .. (-0.25,1);
+\end{tikzpicture}
+\end{center}
+
+\begin{flushleft}
+    Wie bei der Queue wird im Abitur eine Java Stack Klasse vorgegeben:
+    \href{https://raw.githubusercontent.com/tim-tm/informatik-notes/main/code/Stack.java}{\textit{Abiturvorgabe: Stack}} \\
+\end{flushleft}
+
 \subsubsection{Anwendung}
