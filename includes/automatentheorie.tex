@@ -1,0 +1,74 @@
+\chapter{Automatentheorie}
+\begin{flushleft}
+    Die Automatentheorie befasst sich mit formalen Sprachen und Grammatiken.
+    Es geht hauptsächlich darum diese Sprachen durch Automaten zu verarbeiten.
+\end{flushleft}
+
+\section{Automatentypen}
+\subsection{Endliche Automaten}
+\subsubsection{Definition}
+\begin{flushleft}
+    Ein endlicher Automat wird durch so einen 5er-Tupel definiert:
+    \begin{align}
+        A=(\Sigma,Q,\delta,q_0,F)
+    \end{align}
+    \begin{enumerate}
+        \item {
+            Das Alphabet $\Sigma$ ist die Menge der erlaubten Eingabesymbole des Automaten.
+            Bei endlichen Automaten muss diese Menge $\Sigma$ endlich sein.
+        }
+        \item {
+            Die zweite Menge $Q$ des Automaten ist die Menge aller Zustände dieses Automaten.
+            Die Anzahl der Zustände des Automaten muss endlich sein.
+            Außerdem gilt $q_0 \in Q$, da $q_0$ der Startzustand des Automaten ist.
+        }
+        \item {
+            Da der Automat endlich ist gibt es auch eine Menge $F$ von Endzuständen.
+            $Q$ enthält alle Zustände, deshalb gilt $F \subseteq Q$.
+        }
+        \item {
+            Übrig bleibt die Zustandsübergangsfunktion $\delta: Q \times \Sigma \rightarrow Q$.
+            Diese Übergangsfunktion bestimmt welcher Zustand bei welcher bestimmten Eingabe folgt.
+        }
+    \end{enumerate}
+    Endliche Automaten werden in Bezug auf Determinismus unterschieden.
+    Ein Automat ist nicht deterministisch, wenn dieser von einem Zustand ausgehend, mehrere Übergänge
+    für gleiche Zeichen definiert.
+\end{flushleft}
+
+\subsubsection{Transduktor oder Akzeptor}
+\begin{flushleft}
+    Während Transduktoren eine beliebige Ausgabe auf bestimmte Eingaben geben können, haben 
+    Akzeptoren nur die Möglichkeit eine Eingabe zu akzeptieren oder abzulehnen.
+    Transduktoren sind daher etwas komplizierter als Akzeptoren, sie werden in der Regel durch einen 7er-Tupel definiert:
+    \begin{align}
+        A=(\Sigma,\Gamma,Q,\delta,q_0,F,\omega)
+    \end{align}
+    Neu sind hier bloß $\Gamma$, die Menge der Ausgabesymbole und $\omega: Q \times \Sigma \rightarrow \Gamma^*$, die Ausgabefunktion.
+\end{flushleft}
+
+\subsubsection{Beispiel}
+\begin{flushleft}
+    Als Beispiel für einen deterministischen endlichen Automaten ist hier der Übergangsgraph eines
+    Automaten, der nur die Zahl 42 akzeptiert:
+    \begin{center}
+    \begin{tikzpicture}[->,
+        shorten >=5pt,
+        node distance=2.5cm,
+        semithick]
+        \node[initial,state] (R) {$q_0$};
+        \node[state] (S) [right of=R] {$q_1$};
+        \node[state,accepting] (T) [right of=S] {$q_2$};
+        \path (R) edge node [below] {4} (S)
+              (S) edge node [below] {2} (T);
+    \end{tikzpicture}
+    \end{center}
+    Formal ist dieser Automat wie folgt definiert:
+    \begin{align}
+        A &= (\Sigma,Q,\delta,q_0,F) \\
+        \Sigma &= \{4,2\} \\
+        Q &= \{q_0,q_1,q_2\} \\
+        \delta &= \{\langle \langle q_0, 4 \rangle, q_1 \rangle, \langle \langle q_1, 2 \rangle, q_2 \rangle \} \\
+        F &= \{q_2\}
+    \end{align}
+\end{flushleft}
