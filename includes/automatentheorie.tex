@@ -85,3 +85,172 @@
         \end{tabular}
     \end{center}
 \end{flushleft}
+
+\subsection{Potenzmengenkonstruktion}
+\begin{flushleft}
+    Die Funktionsweise von deterministischen endlichen Automaten lässt sich relativ einfach erkennen.
+    Bei nicht-deterministischen endlichen Automaten ist das aber nicht so, deshalb kann man eine Potenzmengenkonstruktion 
+    durchführen um einen beliebigen nicht-deterministischen endlichen Automaten (NEA) in einen deterministischen endlichen 
+    Automaten (DEA) umzuwandeln.
+    \subsubsection{Beispiel}
+    Dieser NEA soll jetzt beispielhaft in einen DEA umgewandelt werden:
+    \begin{center}
+    \begin{tikzpicture}[->,
+        shorten >=5pt,
+        node distance=2.5cm,
+        semithick]
+        \node[initial,state] (R) {$q_0$};
+        \node[state,accepting] (S) [right of=R] {$q_1$};
+        \path (R) edge [loop below,below] node {a} (R)
+              (R) edge [below] node {a} (S)
+              (S) edge [loop below,below] node {b} (S);
+    \end{tikzpicture}
+    \end{center}
+    Der erste Schritt ist hierbei das Bestimmen der Zustandsmenge $Q$. In diesem Beispiel gilt:
+    \begin{align}
+        Q=\{q_0,q_1\}
+    \end{align}
+    Um nun einen DEA aus diesem NEA zu machen muss die Potenzmenge dieser Zustandsmenge bestimmt werden.
+    Dieser Prozess könnte bereits aus der Mengenlehre bekannt sein, $Q'$ ist hier die Potenzmenge von $Q$:
+    \begin{align}
+        Q &=\{q_0,q_1\} \\
+        Q' &=\{\emptyset,\{q_0\},\{q_1\},\{q_0,q_1\}\}
+    \end{align}
+    Das Symbol $\emptyset$ steht für die leere Menge $\{\}$. Diese Potenzmenge $Q'$ ist die Zustandsmenge 
+    des neuen DEA. Um später einen schöneren Übergangsgraph zeichnen zu können wird diese Menge $Q'$ vereinfacht 
+    (durch die zweite Änderung sollte $Q'$ eigentlich zu $Q''$ werden, hier bleibt der Name jedoch gleich):
+    \begin{align}
+        Q' =\{\emptyset,q_0,q_1,q_{01}\}
+    \end{align}
+    Wichtig zu beachten ist, dass $q_1 \neq q_{01}$ ist, da $q_1=\{q_1\}$ und $q_{01}=\{q_0,q_1\}$ ist.
+    Mit der Menge $Q'$ als Zustandsmenge unseres DEA, sieht der erste Entwurf des Übergangsgraphen etwa so aus:
+    \begin{center}
+    \begin{tikzpicture}[->,
+        shorten >=5pt,
+        node distance=2.5cm,
+        semithick]
+        \node[state] (0) {$q_0$};
+        \node[state] (1) [above right=0.65cm and 1.5cm of 0] {$q_1$};
+        \node[state] (2) [below right=0.65cm and 1.5cm of 0] {$q_{01}$};
+        \node[state] (E) [right=3.75cm of 0] {$\emptyset$};
+    \end{tikzpicture}
+    \end{center}
+    Wir beginnen damit die Start- und Endzustände zu bestimmen. Den Startzustand (hier $q_0$) können 
+    wir einfach übernehmen. Bei den Endzuständen ist das Vorgehen etwas anders, jeder Zustand, dessen Menge 
+    einen Endzustand des NEA enthält ist ein Endzustand des DEA. In diesem Beispiel sind also $q_1$ und $q_{01}$
+    Endzustände:
+    \begin{center}
+    \begin{tikzpicture}[->,
+        shorten >=5pt,
+        node distance=2.5cm,
+        semithick]
+        \node[initial,state] (0) {$q_0$};
+        \node[accepting,state] (1) [above right=0.65cm and 1.5cm of 0] {$q_1$};
+        \node[accepting,state] (2) [below right=0.65cm and 1.5cm of 0] {$q_{01}$};
+        \node[state] (E) [right=3.75cm of 0] {$\emptyset$};
+    \end{tikzpicture}
+    \end{center}
+    Um die Übergänge des DEA zu bestimmen, zeichnen wir zu erst die Übergangstabelle des NEA:
+    \begin{center}
+        \begin{tabular}{|c|c|c|}
+            \hline
+            $\delta$ & a & b \\
+            \hline
+            $q_0$ & $\{q_0,q_1\}$ & $\emptyset$ \\
+            \hline
+            $q_1$ & $\emptyset$ & $q_1$ \\
+            \hline
+            $\emptyset$ & $\emptyset$ & $\emptyset$ \\
+            \hline
+        \end{tabular}
+    \end{center}
+    Hier ist relativ leicht zu erkennen, dass $\{q_0,q_1\}$ der Grund für den fehlenden 
+    Determinismus des NEA ist. Genau dieser Ausdruck sollte uns jedoch aus der vereinfachten Potenzmenge 
+    $Q'$ bekannt vorkommen, $\{q_0,q_1\}=q_{01}$. Um einen DEA aus dem NEA zu machen muss man hier also bloß 
+    $\{q_0,q_1\}$ durch den neuen Zustand $q_{01}$ austauschen:
+    \begin{center}
+        \begin{tabular}{|c|c|c|}
+            \hline
+            $\delta$ & a & b \\
+            \hline
+            $q_0$ & $q_{01}$ & $\emptyset$ \\
+            \hline
+            $q_1$ & $\emptyset$ & $q_1$ \\
+            \hline
+            $q_{01}$ & ? & ? \\
+            \hline
+            $\emptyset$ & $\emptyset$ & $\emptyset$ \\
+            \hline
+        \end{tabular}
+    \end{center}
+    Um einen kompletten DEA zu konstruieren muss jedoch noch definiert werden, wie sich der DEA bei $q_{01}$ verhält.
+    Dieses Verhalten muss aus dem NEA genommen werden. Da $q_{01}$ die Menge von $q_0$ und $q_1$ ist, kombiniert $q_{01}$
+    das Verhalten dieser beiden Zustände. Bei einem $a$ bleibt der DEA also im Zustand $q_{01}$ und bei einem $b$ wandert 
+    der DEA in den Zustand $q_1$:
+    \begin{center}
+        \begin{tabular}{|c|c|c|}
+            \hline
+            $\delta$ & a & b \\
+            \hline
+            $q_0$ & $q_{01}$ & $\emptyset$ \\
+            \hline
+            $q_1$ & $\emptyset$ & $q_1$ \\
+            \hline
+            $q_{01}$ & $q_{01}$ & $q_1$ \\
+            \hline
+            $\emptyset$ & $\emptyset$ & $\emptyset$ \\
+            \hline
+        \end{tabular}
+    \end{center}
+    Basierend auf dieser Übergangstabelle kann man diesen Übergangsgraphen zeichnen:
+    \begin{center}
+    \begin{tikzpicture}[->,
+        shorten >=5pt,
+        node distance=2.5cm,
+        semithick]
+        \node[initial,state] (0) {$q_0$};
+        \node[accepting,state] (1) [above right=0.65cm and 1.5cm of 0] {$q_1$};
+        \node[accepting,state] (2) [below right=0.65cm and 1.5cm of 0] {$q_{01}$};
+        \node[state] (E) [right=3.75cm of 0] {$\emptyset$};
+        \path (0) edge [below] node {a} (2)
+              (0) edge [above] node {b} (E)
+              (1) edge [above] node {a} (E)
+              (1) edge [loop left] node {b} (1)
+              (2) edge [loop below] node {a} (2)
+              (2) edge [below left] node {b} (1)
+              (E) edge [loop below] node {a,b} (E);
+    \end{tikzpicture}
+    \end{center}
+    \pagebreak
+    Um diesen unordentlichen Graphen zu bereinigen kann man hier den sogenannten Papierkorbzustand $\emptyset$
+    entfernen. Die Übergangstabelle würde dann so aussehen:
+    \begin{center}
+        \begin{tabular}{|c|c|c|}
+            \hline
+            $\delta$ & a & b \\
+            \hline
+            $q_0$ & $q_{01}$ & $q_0$ \\
+            \hline
+            $q_1$ & $q_1$ & $q_1$ \\
+            \hline
+            $q_{01}$ & $q_{01}$ & $q_1$ \\
+            \hline
+        \end{tabular}
+    \end{center}
+    Hier der übersichtliche Übergangsgraph:
+    \begin{center}
+    \begin{tikzpicture}[->,
+        shorten >=5pt,
+        node distance=2.5cm,
+        semithick]
+        \node[initial,state] (0) {$q_0$};
+        \node[accepting,state] (2) [right of=0] {$q_{01}$};
+        \node[accepting,state] (1) [right of=2] {$q_1$};
+        \path (0) edge [below] node {a} (2)
+            (0) edge [loop below] node {b} (0)
+            (1) edge [loop below] node {a,b} (1)
+            (2) edge [loop below] node {a} (2)
+            (2) edge [below] node {b} (1);
+    \end{tikzpicture}
+    \end{center}
+\end{flushleft}
