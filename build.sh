@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo on
+set -xe
 
 mkdir -p build
 mkdir -p build/includes
