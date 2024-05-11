@@ -9,5 +9,5 @@ Die neuste Version der Informatik-Notes ist auf der [GitHub-Release Seite](https
 
 Wer motiviert genug ist kann auch die neuste Version selbst kompilieren. Dazu benötigt man jedoch eine beliebige Version von LaTeX und Linux.
 ```sh
-git clone https://github.com/tim-tm/mathe-notes.git && cd mathe-notes && ./build.sh
+git clone https://github.com/tim-tm/mathe-notes.git && cd mathe-notes && ./build.sh && ./update_bib.sh && ./build.sh
 ```
