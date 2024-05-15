@@ -35,17 +35,6 @@
     für gleiche Zeichen definiert.
 \end{flushleft}
 
-\subsection{Transduktor oder Akzeptor}
-\begin{flushleft}
-    Während Transduktoren eine beliebige Ausgabe auf bestimmte Eingaben geben können, haben 
-    Akzeptoren nur die Möglichkeit eine Eingabe zu akzeptieren oder abzulehnen.
-    Transduktoren sind daher etwas komplizierter als Akzeptoren, sie werden in der Regel durch einen 7er-Tupel definiert:
-    \begin{align}
-        A=(\Sigma,\Gamma,Q,\delta,q_0,F,\omega)
-    \end{align}
-    Neu sind hier bloß $\Gamma$, die Menge der Ausgabesymbole und $\omega: Q \times \Sigma \rightarrow \Gamma^*$, die Ausgabefunktion.
-\end{flushleft}
-
 \subsection{Beispiel}
 \begin{flushleft}
     Als Beispiel für einen deterministischen endlichen Automaten ist hier der Übergangsgraph eines
@@ -86,6 +75,17 @@
     \end{center}
 \end{flushleft}
 
+\subsection{Mealy Automaten}
+\begin{flushleft}
+    Mealy-Automaten können im Gegensatz zu normalen endlichen Automaten auch Ausgaben produzieren.
+    Ein normaler endlicher Automat (Akzeptor) kann nur Eingaben akzeptieren oder ablehnen.
+    Deshalb sind Mealy-Automaten etwas komplizierter als Akzeptoren, sie werden in der Regel durch einen 7er-Tupel definiert:
+    \begin{align}
+        A=(\Sigma,\Omega,Q,\delta,\lambda,q_0,F)
+    \end{align}
+    Neu sind hier bloß $\Omega$, die Menge der Ausgabesymbole und $\lambda: Q \times \Sigma \rightarrow \Omega$, die Ausgabefunktion.
+\end{flushleft}
+
 \subsection{Potenzmengenkonstruktion}
 \begin{flushleft}
     Die Funktionsweise von deterministischen endlichen Automaten lässt sich relativ einfach erkennen.
@@ -117,13 +117,12 @@
         Q' &=\{\emptyset,\{q_0\},\{q_1\},\{q_0,q_1\}\}
     \end{align}
     Das Symbol $\emptyset$ steht für die leere Menge $\{\}$. Diese Potenzmenge $Q'$ ist die Zustandsmenge 
-    des neuen DEA. Um später einen schöneren Übergangsgraph zeichnen zu können wird diese Menge $Q'$ vereinfacht 
-    (durch die zweite Änderung sollte $Q'$ eigentlich zu $Q''$ werden, hier bleibt der Name jedoch gleich):
+    des neuen DEA. Um später einen schöneren Übergangsgraph zeichnen zu können wird diese Menge $Q'$ vereinfacht:
     \begin{align}
-        Q' =\{\emptyset,q_0,q_1,q_{01}\}
+        Q'' =\{\emptyset,q_0,q_1,q_{01}\}
     \end{align}
     Wichtig zu beachten ist, dass $q_1 \neq q_{01}$ ist, da $q_1=\{q_1\}$ und $q_{01}=\{q_0,q_1\}$ ist.
-    Mit der Menge $Q'$ als Zustandsmenge unseres DEA, sieht der erste Entwurf des Übergangsgraphen etwa so aus:
+    Mit der Menge $Q''$ als Zustandsmenge unseres DEA, sieht der erste Entwurf des Übergangsgraphen etwa so aus:
     \begin{center}
     \begin{tikzpicture}[->,
         shorten >=5pt,
@@ -166,7 +165,7 @@
     \end{center}
     Hier ist relativ leicht zu erkennen, dass $\{q_0,q_1\}$ der Grund für den fehlenden 
     Determinismus des NEA ist. Genau dieser Ausdruck sollte uns jedoch aus der vereinfachten Potenzmenge 
-    $Q'$ bekannt vorkommen, $\{q_0,q_1\}=q_{01}$. Um einen DEA aus dem NEA zu machen muss man hier also bloß 
+    $Q''$ bekannt vorkommen, $\{q_0,q_1\}=q_{01}$. Um einen DEA aus dem NEA zu machen muss man hier also bloß 
     $\{q_0,q_1\}$ durch den neuen Zustand $q_{01}$ austauschen:
     \begin{center}
         \begin{tabular}{|c|c|c|}
@@ -254,3 +253,5 @@
     \end{tikzpicture}
     \end{center}
 \end{flushleft}
+
+\subsection{Programmierung von DEA's}
