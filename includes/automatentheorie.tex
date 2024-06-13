@@ -36,21 +36,26 @@
 \end{flushleft}
 
 \subsection{Beispiel}
+\label{sec:Beispiel}
 \begin{flushleft}
     Als Beispiel für einen deterministischen endlichen Automaten ist hier der Übergangsgraph eines
     Automaten, der nur die Zahl 42 akzeptiert:
-    \begin{center}
-    \begin{tikzpicture}[->,
-        shorten >=5pt,
-        node distance=2.5cm,
-        semithick]
-        \node[initial,state] (R) {$q_0$};
-        \node[state] (S) [right of=R] {$q_1$};
-        \node[state,accepting] (T) [right of=S] {$q_2$};
-        \path (R) edge node [below] {4} (S)
-              (S) edge node [below] {2} (T);
-    \end{tikzpicture}
-    \end{center}
+\end{flushleft}
+    
+\begin{center}
+\begin{tikzpicture}[->,
+    shorten >=5pt,
+    node distance=2.5cm,
+    semithick]
+    \node[initial,state] (R) {$q_0$};
+    \node[state] (S) [right of=R] {$q_1$};
+    \node[state,accepting] (T) [right of=S] {$q_2$};
+    \path (R) edge node [below] {4} (S)
+            (S) edge node [below] {2} (T);
+\end{tikzpicture}
+\end{center}
+
+\begin{flushleft}
     Formal ist dieser Automat wie folgt definiert:
     \begin{align}
         A &= (\Sigma,Q,\delta,q_0,F) \\
@@ -60,20 +65,21 @@
         F &= \{q_2\}
     \end{align}
     Die Zustände dieses Automaten lassen sich auch etwas anschaulicher in einer Übergangstabelle darstellen:
-    \begin{center}
-        \begin{tabular}{|c|c|c|}
-            \hline
-            $\delta$ & 4 & 2 \\
-            \hline
-            $q_0$ & $q_1$ & $q_0$ \\
-            \hline
-            $q_1$ & $q_1$ & $q_2$ \\
-            \hline
-            $q_2$ & $q_2$ & $q_2$ \\
-            \hline
-        \end{tabular}
-    \end{center}
 \end{flushleft}
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+    \hline
+    $\delta$ & 4 & 2 \\
+    \hline
+    $q_0$ & $q_1$ & $q_0$ \\
+    \hline
+    $q_1$ & $q_1$ & $q_2$ \\
+    \hline
+    $q_2$ & $q_2$ & $q_2$ \\
+    \hline
+\end{tabular}
+\end{center}
 
 \subsection{Mealy Automaten}
 \begin{flushleft}
@@ -94,18 +100,22 @@
     Automaten (DEA) umzuwandeln.
     \subsubsection{Beispiel \cite{potenzmengenkonstruktion}}
     Dieser NEA soll jetzt beispielhaft in einen DEA umgewandelt werden:
-    \begin{center}
-    \begin{tikzpicture}[->,
-        shorten >=5pt,
-        node distance=2.5cm,
-        semithick]
-        \node[initial,state] (R) {$q_0$};
-        \node[state,accepting] (S) [right of=R] {$q_1$};
-        \path (R) edge [loop below,below] node {a} (R)
-              (R) edge [below] node {a} (S)
-              (S) edge [loop below,below] node {b} (S);
-    \end{tikzpicture}
-    \end{center}
+\end{flushleft}
+    
+\begin{center}
+\begin{tikzpicture}[->,
+    shorten >=5pt,
+    node distance=2.5cm,
+    semithick]
+    \node[initial,state] (R) {$q_0$};
+    \node[state,accepting] (S) [right of=R] {$q_1$};
+    \path (R) edge [loop below,below] node {a} (R)
+            (R) edge [below] node {a} (S)
+            (S) edge [loop below,below] node {b} (S);
+\end{tikzpicture}
+\end{center}
+
+\begin{flushleft}
     Der erste Schritt ist hierbei das Bestimmen der Zustandsmenge $Q$. In diesem Beispiel gilt:
     \begin{align}
         Q=\{q_0,q_1\}
@@ -123,135 +133,533 @@
     \end{align}
     Wichtig zu beachten ist, dass $q_1 \neq q_{01}$ ist, da $q_1=\{q_1\}$ und $q_{01}=\{q_0,q_1\}$ ist.
     Mit der Menge $Q''$ als Zustandsmenge unseres DEA, sieht der erste Entwurf des Übergangsgraphen etwa so aus:
-    \begin{center}
-    \begin{tikzpicture}[->,
-        shorten >=5pt,
-        node distance=2.5cm,
-        semithick]
-        \node[state] (0) {$q_0$};
-        \node[state] (1) [above right=0.65cm and 1.5cm of 0] {$q_1$};
-        \node[state] (2) [below right=0.65cm and 1.5cm of 0] {$q_{01}$};
-        \node[state] (E) [right=3.75cm of 0] {$\emptyset$};
-    \end{tikzpicture}
-    \end{center}
+\end{flushleft}
+    
+\begin{center}
+\begin{tikzpicture}[->,
+    shorten >=5pt,
+    node distance=2.5cm,
+    semithick]
+    \node[state] (0) {$q_0$};
+    \node[state] (1) [above right=0.65cm and 1.5cm of 0] {$q_1$};
+    \node[state] (2) [below right=0.65cm and 1.5cm of 0] {$q_{01}$};
+    \node[state] (E) [right=3.75cm of 0] {$\emptyset$};
+\end{tikzpicture}
+\end{center}
+
+\begin{flushleft}
     Wir beginnen damit die Start- und Endzustände zu bestimmen. Den Startzustand (hier $q_0$) können 
     wir einfach übernehmen. Bei den Endzuständen ist das Vorgehen etwas anders, jeder Zustand, dessen Menge 
     einen Endzustand des NEA enthält ist ein Endzustand des DEA. In diesem Beispiel sind also $q_1$ und $q_{01}$
     Endzustände:
-    \begin{center}
-    \begin{tikzpicture}[->,
-        shorten >=5pt,
-        node distance=2.5cm,
-        semithick]
-        \node[initial,state] (0) {$q_0$};
-        \node[accepting,state] (1) [above right=0.65cm and 1.5cm of 0] {$q_1$};
-        \node[accepting,state] (2) [below right=0.65cm and 1.5cm of 0] {$q_{01}$};
-        \node[state] (E) [right=3.75cm of 0] {$\emptyset$};
-    \end{tikzpicture}
-    \end{center}
+\end{flushleft}
+    
+\begin{center}
+\begin{tikzpicture}[->,
+    shorten >=5pt,
+    node distance=2.5cm,
+    semithick]
+    \node[initial,state] (0) {$q_0$};
+    \node[accepting,state] (1) [above right=0.65cm and 1.5cm of 0] {$q_1$};
+    \node[accepting,state] (2) [below right=0.65cm and 1.5cm of 0] {$q_{01}$};
+    \node[state] (E) [right=3.75cm of 0] {$\emptyset$};
+\end{tikzpicture}
+\end{center}
+
+\begin{flushleft}
     Um die Übergänge des DEA zu bestimmen, zeichnen wir zu erst die Übergangstabelle des NEA:
-    \begin{center}
-        \begin{tabular}{|c|c|c|}
-            \hline
-            $\delta$ & a & b \\
-            \hline
-            $q_0$ & $\{q_0,q_1\}$ & $\emptyset$ \\
-            \hline
-            $q_1$ & $\emptyset$ & $q_1$ \\
-            \hline
-            $\emptyset$ & $\emptyset$ & $\emptyset$ \\
-            \hline
-        \end{tabular}
-    \end{center}
+\end{flushleft}
+    
+\begin{center}
+\begin{tabular}{|c|c|c|}
+    \hline
+    $\delta$ & a & b \\
+    \hline
+    $q_0$ & $\{q_0,q_1\}$ & $\emptyset$ \\
+    \hline
+    $q_1$ & $\emptyset$ & $q_1$ \\
+    \hline
+    $\emptyset$ & $\emptyset$ & $\emptyset$ \\
+    \hline
+\end{tabular}
+\end{center}
+
+\begin{flushleft}
     Hier ist relativ leicht zu erkennen, dass $\{q_0,q_1\}$ der Grund für den fehlenden 
     Determinismus des NEA ist. Genau dieser Ausdruck sollte uns jedoch aus der vereinfachten Potenzmenge 
     $Q''$ bekannt vorkommen, $\{q_0,q_1\}=q_{01}$. Um einen DEA aus dem NEA zu machen muss man hier also bloß 
     $\{q_0,q_1\}$ durch den neuen Zustand $q_{01}$ austauschen:
-    \begin{center}
-        \begin{tabular}{|c|c|c|}
-            \hline
-            $\delta$ & a & b \\
-            \hline
-            $q_0$ & $q_{01}$ & $\emptyset$ \\
-            \hline
-            $q_1$ & $\emptyset$ & $q_1$ \\
-            \hline
-            $q_{01}$ & ? & ? \\
-            \hline
-            $\emptyset$ & $\emptyset$ & $\emptyset$ \\
-            \hline
-        \end{tabular}
-    \end{center}
+\end{flushleft}
+    
+\begin{center}
+\begin{tabular}{|c|c|c|}
+    \hline
+    $\delta$ & a & b \\
+    \hline
+    $q_0$ & $q_{01}$ & $\emptyset$ \\
+    \hline
+    $q_1$ & $\emptyset$ & $q_1$ \\
+    \hline
+    $q_{01}$ & ? & ? \\
+    \hline
+    $\emptyset$ & $\emptyset$ & $\emptyset$ \\
+    \hline
+\end{tabular}
+\end{center}
+
+\begin{flushleft}
     Um einen kompletten DEA zu konstruieren muss jedoch noch definiert werden, wie sich der DEA bei $q_{01}$ verhält.
     Dieses Verhalten muss aus dem NEA genommen werden. Da $q_{01}$ die Menge von $q_0$ und $q_1$ ist, kombiniert $q_{01}$
     das Verhalten dieser beiden Zustände. Bei einem $a$ bleibt der DEA also im Zustand $q_{01}$ und bei einem $b$ wandert 
     der DEA in den Zustand $q_1$:
-    \begin{center}
-        \begin{tabular}{|c|c|c|}
-            \hline
-            $\delta$ & a & b \\
-            \hline
-            $q_0$ & $q_{01}$ & $\emptyset$ \\
-            \hline
-            $q_1$ & $\emptyset$ & $q_1$ \\
-            \hline
-            $q_{01}$ & $q_{01}$ & $q_1$ \\
-            \hline
-            $\emptyset$ & $\emptyset$ & $\emptyset$ \\
-            \hline
-        \end{tabular}
-    \end{center}
-    Basierend auf dieser Übergangstabelle kann man diesen Übergangsgraphen zeichnen:
-    \begin{center}
-    \begin{tikzpicture}[->,
-        shorten >=5pt,
-        node distance=2.5cm,
-        semithick]
-        \node[initial,state] (0) {$q_0$};
-        \node[accepting,state] (1) [above right=0.65cm and 1.5cm of 0] {$q_1$};
-        \node[accepting,state] (2) [below right=0.65cm and 1.5cm of 0] {$q_{01}$};
-        \node[state] (E) [right=3.75cm of 0] {$\emptyset$};
-        \path (0) edge [below] node {a} (2)
-              (0) edge [above] node {b} (E)
-              (1) edge [above] node {a} (E)
-              (1) edge [loop left] node {b} (1)
-              (2) edge [loop below] node {a} (2)
-              (2) edge [below left] node {b} (1)
-              (E) edge [loop below] node {a,b} (E);
-    \end{tikzpicture}
-    \end{center}
-    \pagebreak
-    Um diesen unordentlichen Graphen zu bereinigen kann man hier den sogenannten Papierkorbzustand $\emptyset$
-    entfernen. Die Übergangstabelle würde dann so aussehen:
-    \begin{center}
-        \begin{tabular}{|c|c|c|}
-            \hline
-            $\delta$ & a & b \\
-            \hline
-            $q_0$ & $q_{01}$ & $q_0$ \\
-            \hline
-            $q_1$ & $q_1$ & $q_1$ \\
-            \hline
-            $q_{01}$ & $q_{01}$ & $q_1$ \\
-            \hline
-        \end{tabular}
-    \end{center}
-    Hier der übersichtliche Übergangsgraph:
-    \begin{center}
-    \begin{tikzpicture}[->,
-        shorten >=5pt,
-        node distance=2.5cm,
-        semithick]
-        \node[initial,state] (0) {$q_0$};
-        \node[accepting,state] (2) [right of=0] {$q_{01}$};
-        \node[accepting,state] (1) [right of=2] {$q_1$};
-        \path (0) edge [below] node {a} (2)
-            (0) edge [loop below] node {b} (0)
-            (1) edge [loop below] node {a,b} (1)
-            (2) edge [loop below] node {a} (2)
-            (2) edge [below] node {b} (1);
-    \end{tikzpicture}
-    \end{center}
 \end{flushleft}
 
+\begin{center}
+\begin{tabular}{|c|c|c|}
+    \hline
+    $\delta$ & a & b \\
+    \hline
+    $q_0$ & $q_{01}$ & $\emptyset$ \\
+    \hline
+    $q_1$ & $\emptyset$ & $q_1$ \\
+    \hline
+    $q_{01}$ & $q_{01}$ & $q_1$ \\
+    \hline
+    $\emptyset$ & $\emptyset$ & $\emptyset$ \\
+    \hline
+\end{tabular}
+\end{center}
+
+\begin{flushleft}
+    Basierend auf dieser Übergangstabelle kann man diesen Übergangsgraphen zeichnen:
+\end{flushleft}
+
+\begin{center}
+\begin{tikzpicture}[->,
+    shorten >=5pt,
+    node distance=2.5cm,
+    semithick]
+    \node[initial,state] (0) {$q_0$};
+    \node[accepting,state] (1) [above right=0.65cm and 1.5cm of 0] {$q_1$};
+    \node[accepting,state] (2) [below right=0.65cm and 1.5cm of 0] {$q_{01}$};
+    \node[state] (E) [right=3.75cm of 0] {$\emptyset$};
+    \path (0) edge [below] node {a} (2)
+            (0) edge [above] node {b} (E)
+            (1) edge [above] node {a} (E)
+            (1) edge [loop left] node {b} (1)
+            (2) edge [loop below] node {a} (2)
+            (2) edge [below left] node {b} (1)
+            (E) edge [loop below] node {a,b} (E);
+\end{tikzpicture}
+\end{center}
+
+\begin{flushleft}
+    Um diesen unordentlichen Graphen zu bereinigen kann man hier den sogenannten Papierkorbzustand $\emptyset$
+    entfernen. Die Übergangstabelle würde dann so aussehen:
+\end{flushleft}
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+    \hline
+    $\delta$ & a & b \\
+    \hline
+    $q_0$ & $q_{01}$ & $q_0$ \\
+    \hline
+    $q_1$ & $q_1$ & $q_1$ \\
+    \hline
+    $q_{01}$ & $q_{01}$ & $q_1$ \\
+    \hline
+\end{tabular}
+\end{center}
+
+\begin{flushleft}   
+    Hier der übersichtliche Übergangsgraph:
+\end{flushleft}
+
+\begin{center}
+\begin{tikzpicture}[->,
+    shorten >=5pt,
+    node distance=2.5cm,
+    semithick]
+    \node[initial,state] (0) {$q_0$};
+    \node[accepting,state] (2) [right of=0] {$q_{01}$};
+    \node[accepting,state] (1) [right of=2] {$q_1$};
+    \path (0) edge [below] node {a} (2)
+        (0) edge [loop below] node {b} (0)
+        (1) edge [loop below] node {a,b} (1)
+        (2) edge [loop below] node {a} (2)
+        (2) edge [below] node {b} (1);
+\end{tikzpicture}
+\end{center}
+
 \subsection{Programmierung von DEA's}
+\begin{flushleft}
+    Es gibt natürlich verschiedene Wege DEA's zu programmieren, hier gehe ich jedoch nur auf einen Weg ein,
+    der grundlegend für jeden DEA funktioniert. Dieser Weg erfordert jedoch auch abhängig von der Komplexität des DEA's
+    ein komplexeres Programm.
+\end{flushleft}
+
+\begin{flushleft}
+    Bei der Simulation eines DEA's ist es eigentlich am wichtigsten zu wissen, ob ein bestimmtes Wort von dem DEA akzeptiert oder
+    abgelehnt wird. Man fragt sich also ob der Zustand, der am Ende eines Wortes erreicht wird ein Endzustand ist.
+    Um diese Frage zu beantworten braucht man zunächst einen Weg den jetzigen Zustand zu speichern.
+    Dafür kann man einen einfachen Integer nutzen, ein bestimmter Wert des Integers steht dann also für einen bestimmten Zustand des Automaten.
+\end{flushleft}
+
+\begin{flushleft}
+    Ab hier sollte weiter anhand von einem Beispiel erklärt werden, dafür nutze ich das obrige \nameref{sec:Beispiel} eines DEA,
+    der nur das Wort $w_0=42$ akzeptiert.
+    Hier noch einmal der Übergangsgraph dieses DEA:
+\end{flushleft}
+
+\begin{center}
+\begin{tikzpicture}[->,
+    shorten >=5pt,
+    node distance=2.5cm,
+    semithick]
+    \node[initial,state] (R) {$q_0$};
+    \node[state] (S) [right of=R] {$q_1$};
+    \node[state,accepting] (T) [right of=S] {$q_2$};
+    \path (R) edge node [below] {4} (S)
+            (S) edge node [below] {2} (T);
+\end{tikzpicture}
+\end{center}
+
+\begin{flushleft}
+    Hier seine formale Definition:
+    \begin{align}
+        A &= (\Sigma,Q,\delta,q_0,F) \\
+        \Sigma &= \{4,2\} \\
+        Q &= \{q_0,q_1,q_2\} \\
+        \delta &= \{\langle \langle q_0, 4 \rangle, q_1 \rangle, \langle \langle q_1, 2 \rangle, q_2 \rangle \} \\
+        F &= \{q_2\}
+    \end{align}
+    Für dieses Beispiel sollte unser Integer im Programmcode drei verschiedene Werte annehmen können,
+    die Menge $I$ enthält diese Werte:
+    \begin{align}
+        I=\{0,1,2\}
+    \end{align}
+    Ein Wert steht immer für einen Zustand, $0$ steht hier also für $q_0$.
+    Zunächst erstellen wir die Klasse \textit{Automat}, die das Verhalten des DEA simulieren soll.
+    Die Methode \textit{isValid(word)} gibt \textit{true} oder \textit{false} zurück abhängig davon ob der Automat den String \textit{word} akzeptiert oder ablehnt:
+\end{flushleft}
+
+\begin{center}  
+\begin{lstlisting}
+public class Automat {
+    // der jetzige Zustand
+    private int zustand;
+
+    // Gibt zurueck ob der String "word" akzeptiert wird.
+    public boolean isValid(String word) {
+        // TODO
+    }
+}
+\end{lstlisting}
+\href{https://raw.githubusercontent.com/tim-tm/informatik-notes/main/code/Automat.java}{\textit{Unkommentierter Code}} \\
+\end{center}
+
+\begin{flushleft}
+    Ein Automat verarbeitet jedes Zeichen eines Wortes nacheinander, das sollte unser Programm auch so machen.
+    Es gibt natürlich verschiedene Wege dies in Java umzusetzen, ich persönlich nutze jedoch gerne foreach-Schleifen,
+    deshalb wird der String \textit{word} erst in ein char-Array umgewandelt:
+\end{flushleft}
+
+\begin{center}
+\begin{lstlisting}
+public class Automat {
+    // der jetzige Zustand
+    private int zustand;
+
+    // Gibt zurueck ob der String "word" akzeptiert wird.
+    public boolean isValid(String word) {
+        // String --> char[]
+        char[] arr = word.toCharArray();
+
+        // jeden char in "word" bearbeiten
+        for (char c : arr) {
+            // ...
+        }
+    }
+}
+\end{lstlisting}
+\href{https://raw.githubusercontent.com/tim-tm/informatik-notes/main/code/Automat.java}{\textit{Unkommentierter Code}} \\
+\end{center}
+
+\begin{flushleft}
+    Jetzt geht es darum das Verhalten des Automaten zu simulieren, also erstellen wir ein switch-case Statement mit einem case für
+    jeden bekannten Wert des Integers:
+\end{flushleft}
+
+\begin{center}
+\begin{lstlisting}
+public class Automat {
+    // der jetzige Zustand
+    private int zustand;
+
+    // Gibt zurueck ob der String "word" akzeptiert wird.
+    public boolean isValid(String word) {
+        // String --> char[]
+        char[] arr = word.toCharArray();
+
+        // jeden char in "word" bearbeiten
+        for (char c : arr) {
+            switch (zustand) {
+                case 0: {
+                    // verhalten im ersten Zustand
+                    break;
+                }
+                case 1: {
+                    // verhalten im zweiten Zustand
+                    break;
+                }
+                case 2: {
+                    // verhalten im dritten Zustand
+                    break;
+                }
+            }
+        }
+    }
+}
+\end{lstlisting}
+\href{https://raw.githubusercontent.com/tim-tm/informatik-notes/main/code/Automat.java}{\textit{Unkommentierter Code}} \\
+\end{center}
+
+\begin{flushleft}
+    Jetzt kopieren wir das Verhalten jedes Zustands:
+\end{flushleft}
+
+\begin{center}
+\begin{lstlisting}
+public class Automat {
+    // der jetzige Zustand
+    private int zustand;
+
+    // Gibt zurueck ob der String "word" akzeptiert wird.
+    public boolean isValid(String word) {
+        // String --> char[]
+        char[] arr = word.toCharArray();
+
+        // jeden char in "word" bearbeiten
+        for (char c : arr) {
+            switch (zustand) {
+                case 0: {
+                    if (c == '4') {
+                        zustand = 1;
+                    }
+                    break;
+                }
+                case 1: {
+                    if (c == '2') {
+                        zustand = 2;
+                    }
+                    break;
+                }
+                // case 2 entfernt, da der Zustand q2 keinen Uebergang hat
+            }
+        }
+    }
+}
+\end{lstlisting}
+\href{https://raw.githubusercontent.com/tim-tm/informatik-notes/main/code/Automat.java}{\textit{Unkommentierter Code}} \\
+\end{center}
+
+\begin{flushleft}
+    Die Zustandsvariable wird verändert, \textit{isValid} gibt aber noch nicht aus ob der Automat akzeptiert oder nicht.
+    Dafür kann man einfach abfragen ob die Zustandsvariable den Wert 2 hat, da $q_2$ ein Endzustand ist:
+\end{flushleft}
+
+\begin{center}
+\begin{lstlisting}
+public class Automat {
+    // der jetzige Zustand
+    private int zustand;
+
+    // Gibt zurueck ob der String "word" akzeptiert wird.
+    public boolean isValid(String word) {
+        // String --> char[]
+        char[] arr = word.toCharArray();
+
+        // jeden char in "word" bearbeiten
+        for (char c : arr) {
+            switch (zustand) {
+                case 0: {
+                    if (c == '4') {
+                        zustand = 1;
+                    }
+                    break;
+                }
+                case 1: {
+                    if (c == '2') {
+                        zustand = 2;
+                    }
+                    break;
+                }
+                // case 2 entfernt, da der Zustand q2 keinen Uebergang hat
+            }
+        }
+
+        if (zustand == 2) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+\end{lstlisting}
+\href{https://raw.githubusercontent.com/tim-tm/informatik-notes/main/code/Automat.java}{\textit{Unkommentierter Code}} \\
+\end{center}
+
+\begin{flushleft}
+    Hier kann die if-Abfrage vereinfacht werden: 
+\end{flushleft}
+
+\begin{center}
+\begin{lstlisting}
+public class Automat {
+    // der jetzige Zustand
+    private int zustand;
+
+    // Gibt zurueck ob der String "word" akzeptiert wird.
+    public boolean isValid(String word) {
+        // String --> char[]
+        char[] arr = word.toCharArray();
+
+        // jeden char in "word" bearbeiten
+        for (char c : arr) {
+            switch (zustand) {
+                case 0: {
+                    if (c == '4') {
+                        zustand = 1;
+                    }
+                    break;
+                }
+                case 1: {
+                    if (c == '2') {
+                        zustand = 2;
+                    }
+                    break;
+                }
+                // case 2 entfernt, da der Zustand q2 keinen Uebergang hat
+            }
+        }
+
+        return zustand == 2;
+    }
+}
+\end{lstlisting}
+\href{https://raw.githubusercontent.com/tim-tm/informatik-notes/main/code/Automat.java}{\textit{Unkommentierter Code}} \\
+\end{center}
+
+\begin{flushleft}
+    Was passiert aber nun, wenn isValid mehrmals aufgerufen wird?
+    Die Zustandsvariable muss beim zweiten Aufruf nicht unbedingt 0 (Startzustand $q_0$) sein,
+    deshalb stellen wir sicher, dass die Variable beim Aufruf von \textit{isValid} immer auf 0 gesetzt wird:
+\end{flushleft}
+
+\begin{center}
+\begin{lstlisting}
+public class Automat {
+    // der jetzige Zustand
+    private int zustand;
+
+    // Gibt zurueck ob der String "word" akzeptiert wird.
+    public boolean isValid(String word) {
+        // sicherstellen, dass isValid im Startzustand startet
+        zustand = 0;
+
+        // String --> char[]
+        char[] arr = word.toCharArray();
+
+        // jeden char in "word" bearbeiten
+        for (char c : arr) {
+            switch (zustand) {
+                case 0: {
+                    if (c == '4') {
+                        zustand = 1;
+                    }
+                    break;
+                }
+                case 1: {
+                    if (c == '2') {
+                        zustand = 2;
+                    }
+                    break;
+                }
+                // case 2 entfernt, da der Zustand q2 keinen Uebergang hat
+            }
+        }
+
+        return zustand == 2;
+    }
+}
+\end{lstlisting}
+\href{https://raw.githubusercontent.com/tim-tm/informatik-notes/main/code/Automat.java}{\textit{Unkommentierter Code}} \\
+\end{center}
+
+\begin{flushleft}
+    Wenn man möchte kann man auch noch eine Methode schreiben, die den jetzigen Zustand zurück gibt:
+\end{flushleft}
+
+\begin{center}
+\begin{lstlisting}
+public class Automat {
+    // der jetzige Zustand
+    private int zustand;
+
+    // Gibt zurueck ob der String "word" akzeptiert wird.
+    public boolean isValid(String word) {
+        // sicherstellen, dass isValid im Startzustand startet
+        zustand = 0;
+
+        // String --> char[]
+        char[] arr = word.toCharArray();
+
+        // jeden char in "word" bearbeiten
+        for (char c : arr) {
+            switch (zustand) {
+                case 0: {
+                    if (c == '4') {
+                        zustand = 1;
+                    }
+                    break;
+                }
+                case 1: {
+                    if (c == '2') {
+                        zustand = 2;
+                    }
+                    break;
+                }
+                // case 2 entfernt, da der Zustand q2 keinen Uebergang hat
+            }
+        }
+
+        return zustand == 2;
+    }
+
+    // gibt den jetzigen Zustand zurueck
+    public int getZustand() {
+        return zustand;
+    }
+}
+\end{lstlisting}
+\href{https://raw.githubusercontent.com/tim-tm/informatik-notes/main/code/Automat.java}{\textit{Unkommentierter Code}} \\
+\end{center}
+
+\begin{flushleft}
+    Außerdem kann man einen kleinen Test für die \textit{isValid} Methode schreiben:
+\end{flushleft}
+
+\begin{center}
+\begin{lstlisting}
+public static void main(String[] args) {
+    // erstelle ein Automat Objekt
+    Automat a = new Automat();
+    // sollte "true" ausgeben
+    System.out.println(a.isValid("42"));
+    // sollte "false" ausgeben
+    System.out.println(a.isValid("43"));
+}
+\end{lstlisting}
+\href{https://raw.githubusercontent.com/tim-tm/informatik-notes/main/code/Automat.java}{\textit{Unkommentierter Code}} \\
+\end{center}

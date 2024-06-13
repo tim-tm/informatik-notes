@@ -31,22 +31,25 @@
     Indices (Mehrzahl eines Index) starten in der Regel bei $0$.
     Das erste Element des Beispiel-Arrays hat den Wert $3$ und liegt beim Index $0$.
     Hier ein Beispiel zur Erstellung und Nutzung eines Arrays in Java.
-    \begin{lstlisting}
-        // Array.java
-        
-        // Unser Beispiel-Array erstellen
-        int[] array = {3,4,2,1,4,1,2,3};
-
-        // Die Laenge unseres Beispiel-Arrays abrufen
-        int arrLen = array.length;
-        
-        // Den Wert des ersten Elements (3) in die Variable firstElem speichern
-        int firstElem = array[0];
-
-        // Ein Array erstellen, das vier mal den Wert 0 speichert
-        int[4] array1;
-    \end{lstlisting}
 \end{flushleft}
+
+\begin{center}  
+\begin{lstlisting}
+// Array.java
+
+// Unser Beispiel-Array erstellen
+int[] array = {3,4,2,1,4,1,2,3};
+
+// Die Laenge unseres Beispiel-Arrays abrufen
+int arrLen = array.length;
+
+// Den Wert des ersten Elements (3) in die Variable firstElem speichern
+int firstElem = array[0];
+
+// Ein Array erstellen, das vier mal den Wert 0 speichert
+int[4] array1;
+\end{lstlisting}
+\end{center}
 
 \section{Dynamisch}
 \begin{flushleft}   
@@ -120,118 +123,139 @@
 \begin{flushleft}
     Für Queues gibt es meistens immer ähnliche Aufgaben: \\
     Einfache Queues:
-    \begin{lstlisting}
-        // Erstellt eine Queue von Strings
-        Queue<String> queue = new Queue<>();
-        
-        // Fuegt der Queue eine neues Element mit dem Wert "Hallo" hinzu
-        queue.enqueue("Hallo");
+\end{flushleft}
 
-        // Gibt das erste Element der Queue ("Hallo") in der Konsole aus
-        System.out.println(queue.front());
+\begin{center}   
+\begin{lstlisting}
+// Erstellt eine Queue von Strings
+Queue<String> queue = new Queue<>();
 
-        // Entfernt das erste Element ("Hallo") aus der Queue
-        queue.dequeue();
-    \end{lstlisting}
-    \href{https://raw.githubusercontent.com/tim-tm/informatik-notes/main/code/Queue_Beispiel1.java}{\textit{Unkommentierter Code}} \\
+// Fuegt der Queue eine neues Element mit dem Wert "Hallo" hinzu
+queue.enqueue("Hallo");
+
+// Gibt das erste Element der Queue ("Hallo") in der Konsole aus
+System.out.println(queue.front());
+
+// Entfernt das erste Element ("Hallo") aus der Queue
+queue.dequeue();
+\end{lstlisting}
+\href{https://raw.githubusercontent.com/tim-tm/informatik-notes/main/code/Queue_Beispiel1.java}{\textit{Unkommentierter Code}} \\
+\end{center}
+
+\begin{flushleft}
     Queues mit eigenen Klassen:
-    \begin{lstlisting}
-        // Unsere eigene Klasse um Koordinaten zu speichern
-        class Koordinate {
-            int x;
-            int y;
-        }
-        
-        // Erstellt eine Queue von Koordinaten
-        Queue<Koordinate> queue = new Queue<>();
-        
-        // Wir moechten eine neue Koordinate hinzufuegen
-        // 1. Die Koordinate erstellen
-        Koordinate coord = new Koordinate();
-        
-        // 2. Werte fuer x und y setzen
-        coord.x = 100;
-        coord.y = 150;
+\end{flushleft}
 
-        // 3. Die Koordinate der Queue hinzufuegen
-        queue.enqueue(coord);
-    
-        // Die erste Koordinate ausgeben
-        // 1. Die Koordinate aus der Queue holen
-        Koordinate koord = queue.front();
+\begin{center}
+\begin{lstlisting}
+// Unsere eigene Klasse um Koordinaten zu speichern
+class Koordinate {
+    int x;
+    int y;
+}
 
-        // 2. X-Wert der Koordinate ausgeben
-        System.out.println(koord.x);
-        
-        // 3. Y-Wert der Koordinate ausgeben
-        System.out.println(koord.y);
+// Erstellt eine Queue von Koordinaten
+Queue<Koordinate> queue = new Queue<>();
 
-        // Erste Koordinate (x=100, y=150) aus der Queue entfernen
-        queue.dequeue();
-    \end{lstlisting}
-    \href{https://raw.githubusercontent.com/tim-tm/informatik-notes/main/code/Queue_Beispiel2.java}{\textit{Unkommentierter Code}} \\
+// Wir moechten eine neue Koordinate hinzufuegen
+// 1. Die Koordinate erstellen
+Koordinate coord = new Koordinate();
+
+// 2. Werte fuer x und y setzen
+coord.x = 100;
+coord.y = 150;
+
+// 3. Die Koordinate der Queue hinzufuegen
+queue.enqueue(coord);
+
+// Die erste Koordinate ausgeben
+// 1. Die Koordinate aus der Queue holen
+Koordinate koord = queue.front();
+
+// 2. X-Wert der Koordinate ausgeben
+System.out.println(koord.x);
+
+// 3. Y-Wert der Koordinate ausgeben
+System.out.println(koord.y);
+
+// Erste Koordinate (x=100, y=150) aus der Queue entfernen
+queue.dequeue();
+\end{lstlisting}
+\href{https://raw.githubusercontent.com/tim-tm/informatik-notes/main/code/Queue_Beispiel2.java}{\textit{Unkommentierter Code}} \\
+\end{center}
+
+\begin{flushleft}
     Bei diesem Beispiel fällt vorallem auf, dass plötzlich viel mehr Schritte benötigt werden um ein Element hinzuzufügen.
     Das kann vereinfacht werden indem man der Klasse einen \textit{Konstruktur} gibt.
     Der \textit{Konstruktor} wird ausgeführt wenn man ein neues Objekt der Klasse erstellt.
-    \begin{lstlisting}
-        // Unsere eigene Klasse um Koordinaten zu speichern
-        class Koordinate {
-            int x;
-            int y;
-            
-            /** 
-                * Diese besondere Methode (Konstruktur) wird aufgerufen, wenn wir new Koordinate() ausfuehren.
-                * Unsere Variablen x und y sollen zu den neuen Werten, also unseren Parametern xNeu und yNeu gesetzt werden.
-                * Achtung: Der Name des Konstruktors muss genau mit dem Namen der Klasse uebereinstimmen.
-                */
-            public Koordinate(int xNeu, int yNeu) {
-                x = xNeu;
-                y = yNeu;
-            }
-        }
-        
-        // Erstellt eine Queue von Koordinaten
-        Queue<Koordinate> queue = new Queue<>();
-        
-        // Wir moechten eine neue Koordinate hinzufuegen
-        // 1. Die Koordinate erstellen
-        // Anstatt unsere Werte fuer x und y erst nach dem Erstellen einzutragen, packen wir diese jetzt einfach direkt in die Klammern, wenn wir unsere Koordinate erstellen.
-        // Das funktioniert nur, weil wir in der Definition unserer Klasse einen Konstruktor erstellt haben.
-        Koordinate coord = new Koordinate(100, 150);
+\end{flushleft}
 
-        // 2. Schritt faellt weg
-
-        // 3. (jetzt 2.) Die Koordinate der Queue hinzufuegen
-        queue.enqueue(coord);
+\begin{center}
+\begin{lstlisting}
+// Unsere eigene Klasse um Koordinaten zu speichern
+class Koordinate {
+    int x;
+    int y;
     
-        // Ausgeben und entfernen bleibt gleich
-    \end{lstlisting}
-    \href{https://raw.githubusercontent.com/tim-tm/informatik-notes/main/code/Queue_Beispiel3.java}{\textit{Unkommentierter Code}} \\
+    /** 
+        * Diese besondere Methode (Konstruktur) wird aufgerufen, wenn wir new Koordinate() ausfuehren.
+        * Unsere Variablen x und y sollen zu den neuen Werten, also unseren Parametern xNeu und yNeu gesetzt werden.
+        * Achtung: Der Name des Konstruktors muss genau mit dem Namen der Klasse uebereinstimmen.
+        */
+    public Koordinate(int xNeu, int yNeu) {
+        x = xNeu;
+        y = yNeu;
+    }
+}
+
+// Erstellt eine Queue von Koordinaten
+Queue<Koordinate> queue = new Queue<>();
+
+// Wir moechten eine neue Koordinate hinzufuegen
+// 1. Die Koordinate erstellen
+// Anstatt unsere Werte fuer x und y erst nach dem Erstellen einzutragen, packen wir diese jetzt einfach direkt in die Klammern, wenn wir unsere Koordinate erstellen.
+// Das funktioniert nur, weil wir in der Definition unserer Klasse einen Konstruktor erstellt haben.
+Koordinate coord = new Koordinate(100, 150);
+
+// 2. Schritt faellt weg
+
+// 3. (jetzt 2.) Die Koordinate der Queue hinzufuegen
+queue.enqueue(coord);
+
+// Ausgeben und entfernen bleibt gleich
+\end{lstlisting}
+\href{https://raw.githubusercontent.com/tim-tm/informatik-notes/main/code/Queue_Beispiel3.java}{\textit{Unkommentierter Code}} \\
+\end{center}
+
+\begin{flushleft}
     Dadurch, dass wir einen Konstruktor erstellt haben, sparen wir uns jedes mal wenn wir ein Objekt erstellen zwei Zeilen code. \\
     Kompliziertere Aufgaben mit Queues:
-    \begin{lstlisting}
-        /*
-            * 1. 
-            *      Die Aufgabenstellung sagt uns, dass es bereits eine Queue namens queue gibt, diese speichert Strings.
-            *      Wir sollen jedes Element dieser Queue entfernen und ausgeben lassen.
-            */
-
-        // Die Schleife wird durchlaufen, solange es noch Elemente in der Queue gibt.
-        // Also solange sie nicht leer ist (!isEmpty).
-        while (!queue.isEmpty()) {
-            // Das erste Element der Queue in der Variable s speichern
-            String s = queue.front();
-
-            // Die Variable s, also das erste Element der Queue ausgeben lassen
-            System.out.println(s);
-
-            // Das erste Element (hier: s) aus der Queue entfernen
-            // Ohne diesen Schritt wuerde die Schleife unendlich lange das erste Element ausgeben
-            queue.dequeue();
-        }
-    \end{lstlisting}
-    \href{https://raw.githubusercontent.com/tim-tm/informatik-notes/main/code/Queue_Beispiel4.java}{\textit{Unkommentierter Code}} \\
 \end{flushleft}
+
+\begin{center}
+\begin{lstlisting}
+/*
+ * 1. 
+ *      Die Aufgabenstellung sagt uns, dass es bereits eine Queue namens queue gibt, diese speichert Strings.
+ *      Wir sollen jedes Element dieser Queue entfernen und ausgeben lassen.
+ */
+
+// Die Schleife wird durchlaufen, solange es noch Elemente in der Queue gibt.
+// Also solange sie nicht leer ist (!isEmpty).
+while (!queue.isEmpty()) {
+    // Das erste Element der Queue in der Variable s speichern
+    String s = queue.front();
+
+    // Die Variable s, also das erste Element der Queue ausgeben lassen
+    System.out.println(s);
+
+    // Das erste Element (hier: s) aus der Queue entfernen
+    // Ohne diesen Schritt wuerde die Schleife unendlich lange das erste Element ausgeben
+    queue.dequeue();
+}
+\end{lstlisting}
+\href{https://raw.githubusercontent.com/tim-tm/informatik-notes/main/code/Queue_Beispiel4.java}{\textit{Unkommentierter Code}} \\
+\end{center}
 
 \subsection{Stack}
 \subsubsection{Einführung}
